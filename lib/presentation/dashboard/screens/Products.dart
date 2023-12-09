@@ -178,12 +178,12 @@ void showFilterDialog(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppBar(
-              backgroundColor: colorBlue,
+              backgroundColor: colorBlack,
               title: TextWidget(
                   title: 'Filters', textStyle: TextStyle(color: colorWhite)),
               leading: IconButton(
                 style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(colorBlue)),
+                    backgroundColor: MaterialStatePropertyAll(colorBlack)),
                 onPressed: () {
                   Navigator.pop(context);
                 },
@@ -261,7 +261,7 @@ void showFilterDialog(BuildContext context) {
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: ElevatedButton(
                       style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(colorBlue),
+                          backgroundColor: MaterialStatePropertyAll(colorBlack),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
@@ -305,6 +305,7 @@ class _PriceSliderState extends State<PriceSlider> {
         RangeSlider(
           values: _currentRangeValues,
           max: 100,
+          activeColor: colorBlack,
           divisions: 5,
           labels: RangeLabels(
             _currentRangeValues.start.round().toString(),
