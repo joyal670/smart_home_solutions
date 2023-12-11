@@ -69,8 +69,8 @@ class WelcomeScreen extends StatelessWidget {
                                   Widget child) {
                                 animation = CurvedAnimation(
                                     parent: animation,
-                                    curve: Curves.fastLinearToSlowEaseIn);
-                                return rotationTransition(animation, child);
+                                    curve: Curves.fastOutSlowIn);
+                                return scaleTransition(animation, child);
                               },
                               transitionDuration:
                                   const Duration(milliseconds: 1000)));
