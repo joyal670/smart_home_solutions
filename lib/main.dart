@@ -31,9 +31,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       navigatorKey: navigatorKey,
-      routes: {
-        '/notification_screen': (context) => const NotificationsScreen()
-      },
+      routes: {'/notification_screen': (context) => NotificationsScreen()},
       home: WelcomeScreen(),
     );
   }
