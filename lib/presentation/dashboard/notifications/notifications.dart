@@ -31,7 +31,7 @@ class NotificationsScreen extends StatelessWidget {
         description: 'app-relese-neeto: Visitor sent a message',
         days: '5 days ago'));
     notification.add(Notification(
-        title: 'A new ticket has been opned by Visitor',
+        title: 'A new ticket has been opened by Visitor',
         description: 'app-relese-neeto: Visitor opened new ticket',
         days: '5 days ago'));
     notification.add(Notification(
@@ -92,7 +92,7 @@ class NotificationsScreen extends StatelessWidget {
                 return Container(
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                      color: colorBlue.withOpacity(.1),
+                      color: colorBlue.withOpacity(.05),
                       borderRadius: BorderRadius.circular(10)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
