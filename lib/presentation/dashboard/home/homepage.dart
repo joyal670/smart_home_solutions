@@ -9,6 +9,7 @@ import 'package:apaniot/utils/common_widgets.dart';
 import 'package:apaniot/utils/dims.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:countup/countup.dart';
+import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -1188,33 +1189,59 @@ class _SmartProductsState extends State<SmartProducts>
                     border: Border.all(color: colorWildSand),
                     color: colorBackground,
                     borderRadius: BorderRadius.circular(10)),
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: SizedBox(
-                        height: 100,
-                        width: 100,
-                        child: Image.network(
-                          widget.data[index].image,
-                          fit: BoxFit.fill,
+                child: InkWell(
+                  onTap: () {
+                    // MultiImageProvider multiImageProvider = MultiImageProvider([
+                    //   Image.network(
+                    //     widget.data[index].image,
+                    //   ).image,
+                    //   Image.network(
+                    //     widget.data[index].image,
+                    //   ).image,
+                    //   Image.network(
+                    //     widget.data[index].image,
+                    //   ).image,
+                    //   Image.network(
+                    //     widget.data[index].image,
+                    //   ).image
+                    // ]);
+
+                    // showImageViewerPager(context, multiImageProvider,
+                    //     onPageChanged: (page) {
+                    //   print("page changed to $page");
+                    // }, onViewerDismissed: (page) {
+                    //   print("dismissed while on page $page");
+                    // });
+                    showImageDialog(context, widget.data[index]);
+                  },
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: SizedBox(
+                          height: 100,
+                          width: 100,
+                          child: Image.network(
+                            widget.data[index].image,
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
-                    ),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: CircleAvatar(
-                        radius: 15,
-                        backgroundColor: colorRed,
-                        child: Center(
-                          child: TextWidget(
-                              title: widget.data[index].discount,
-                              textStyle:
-                                  TextStyle(color: colorWhite, fontSize: 10)),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: CircleAvatar(
+                          radius: 15,
+                          backgroundColor: colorRed,
+                          child: Center(
+                            child: TextWidget(
+                                title: widget.data[index].discount,
+                                textStyle:
+                                    TextStyle(color: colorWhite, fontSize: 10)),
+                          ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ),
               height5,
@@ -1254,6 +1281,83 @@ class _SmartProductsState extends State<SmartProducts>
       }),
     );
   }
+}
+
+void showImageDialog(BuildContext context, dModel data) {
+  showGeneralDialog(
+    context: context,
+    barrierColor: colorWhite, // Background color
+    barrierDismissible: false,
+    barrierLabel: 'Dialog',
+    transitionDuration: Duration(milliseconds: 500),
+
+    pageBuilder: (context, animation, secondaryAnimation) {
+      const double initialScale = 0.5; // Initial scale, adjust as needed
+      final curvedValue = Curves.easeInOutBack.transform(animation.value);
+      final scale = initialScale + (1.0 - initialScale) * curvedValue;
+
+      return ScaleTransition(
+        scale: animation,
+        child: Material(
+          child: Stack(
+            children: [
+              Image.network(
+                data.image,
+                width: double.infinity,
+                height: double.infinity,
+                // color: colorAmber,
+                fit: BoxFit.fill,
+              ),
+              Positioned(
+                top: 25,
+                left: 5,
+                child: IconButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(colorWildSand)),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.close,
+                    size: 28,
+                    color: colorBlack,
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 20,
+                left: 10,
+                right: 10,
+                child: SizedBox(
+                  height: 80,
+                  child: ListView.builder(
+                      itemCount: 3,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (BuildContext ctx, index) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 5),
+                          child: Container(
+                            clipBehavior: Clip.hardEdge,
+                            padding: EdgeInsets.all(3),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: colorBlack)),
+                            child: Image.network(
+                              data.image,
+                              height: 60,
+                            ),
+                          ),
+                        );
+                      }),
+                ),
+              )
+            ],
+          ),
+        ),
+      );
+    },
+  ).whenComplete(() {});
 }
 
 class SmartTypes extends StatefulWidget {
@@ -1304,7 +1408,6 @@ class _SmartTypesState extends State<SmartTypes> with TickerProviderStateMixin {
           startX: 40,
           startY: 60,
           child: Container(
-            padding: EdgeInsets.all(15),
             decoration: BoxDecoration(
                 border: Border.all(color: colorWildSand),
                 color: colorBackground,
