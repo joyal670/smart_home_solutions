@@ -159,12 +159,33 @@ void showSortBy(BuildContext context) {
 }
 
 void showFilterDialog(BuildContext context) {
+  // Set up a controller for the animation
+  final AnimationController controller = AnimationController(
+    duration: const Duration(milliseconds: 400),
+    vsync: Navigator.of(context),
+  );
+
+  // Define the tween for the slide animation
+  final Tween<Offset> _offsetTween = Tween(
+    begin: Offset(-1.0, 0.0),
+    end: Offset(0.0, 0.0),
+  );
+
+  // Create the animation using the tween and controller
+  final Animation<Offset> _offsetAnimation = _offsetTween.animate(controller);
+
+  // Start the animation when the dialog is shown
+  controller.forward();
+
+  controller.forward();
+
   showGeneralDialog(
     context: context,
     barrierColor: colorWhite, // Background color
     barrierDismissible: false,
     barrierLabel: 'Dialog',
-    transitionDuration: Duration(milliseconds: 400),
+    transitionDuration: Duration(milliseconds: 500),
+
     pageBuilder: (context, __, ___) {
       List<String> filters = [
         'SecurityCameras',
@@ -173,116 +194,122 @@ void showFilterDialog(BuildContext context) {
         'SmartHome'
       ];
 
-      return Material(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppBar(
-              backgroundColor: colorBlack,
-              title: TextWidget(
-                  title: 'Filters', textStyle: TextStyle(color: colorWhite)),
-              leading: IconButton(
-                style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(colorBlack)),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.close,
-                  size: 28,
-                  color: colorWhite,
-                ),
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () {},
-                  child: TextWidget(
-                    title: 'Reset'.toUpperCase(),
-                    textStyle: TextStyle(color: colorWhite),
+      return SlideTransition(
+        position: _offsetAnimation,
+        child: Material(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppBar(
+                backgroundColor: colorBlack,
+                title: TextWidget(
+                    title: 'Filters', textStyle: TextStyle(color: colorWhite)),
+                leading: IconButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(colorBlack)),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.close,
+                    size: 28,
+                    color: colorWhite,
                   ),
-                )
-              ],
-            ),
-            ListView(
-              padding: EdgeInsets.all(12),
-              shrinkWrap: true,
-              //direction: Axis.vertical,
-              // crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ExpansionTile(
-                  shape: Border(),
-                  title: Text("Category",
-                      style: TextStyle(
-                          color: colorBlack,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 17)),
-                  //  leading: Icon(Icons.category),
-                  initiallyExpanded: true,
-                  expandedAlignment: Alignment.topLeft,
-                  childrenPadding: EdgeInsets.all(10),
-                  children: [
-                    ChipWidget1(filters: filters),
-                  ],
                 ),
-                Divider(),
-                ExpansionTile(
-                  shape: Border(),
-                  title: Text("Manufactures",
-                      style: TextStyle(
-                          color: colorBlack,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 17)),
-                  //  leading: Icon(Icons.category),
-                  initiallyExpanded: false,
-                  expandedAlignment: Alignment.topLeft,
-                  childrenPadding: EdgeInsets.all(10),
-                  children: [
-                    ChipWidget2(filters: filters),
-                  ],
-                ),
-                Divider(),
-                ExpansionTile(
-                  shape: Border(),
-                  title: Text("Price",
-                      style: TextStyle(
-                          color: colorBlack,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 17)),
-                  //  leading: Icon(Icons.category),
-                  initiallyExpanded: false,
-                  expandedAlignment: Alignment.topLeft,
-                  childrenPadding: EdgeInsets.all(10),
-                  children: [
-                    PriceSlider(),
-                  ],
-                ),
-                height30,
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(colorBlack),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ))),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: TextWidget(
-                          title: "Show result".toUpperCase(),
-                          textStyle: TextStyle(
-                            color: colorWhite,
-                          ))),
-                ),
-              ],
-            ),
-          ],
+                actions: [
+                  TextButton(
+                    onPressed: () {},
+                    child: TextWidget(
+                      title: 'Reset'.toUpperCase(),
+                      textStyle: TextStyle(color: colorWhite),
+                    ),
+                  )
+                ],
+              ),
+              ListView(
+                padding: EdgeInsets.all(12),
+                shrinkWrap: true,
+                //direction: Axis.vertical,
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ExpansionTile(
+                    shape: Border(),
+                    title: Text("Category",
+                        style: TextStyle(
+                            color: colorBlack,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17)),
+                    //  leading: Icon(Icons.category),
+                    initiallyExpanded: true,
+                    expandedAlignment: Alignment.topLeft,
+                    childrenPadding: EdgeInsets.all(10),
+                    children: [
+                      ChipWidget1(filters: filters),
+                    ],
+                  ),
+                  Divider(),
+                  ExpansionTile(
+                    shape: Border(),
+                    title: Text("Manufactures",
+                        style: TextStyle(
+                            color: colorBlack,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17)),
+                    //  leading: Icon(Icons.category),
+                    initiallyExpanded: false,
+                    expandedAlignment: Alignment.topLeft,
+                    childrenPadding: EdgeInsets.all(10),
+                    children: [
+                      ChipWidget2(filters: filters),
+                    ],
+                  ),
+                  Divider(),
+                  ExpansionTile(
+                    shape: Border(),
+                    title: Text("Price",
+                        style: TextStyle(
+                            color: colorBlack,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17)),
+                    //  leading: Icon(Icons.category),
+                    initiallyExpanded: false,
+                    expandedAlignment: Alignment.topLeft,
+                    childrenPadding: EdgeInsets.all(10),
+                    children: [
+                      PriceSlider(),
+                    ],
+                  ),
+                  height30,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll(colorBlack),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ))),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: TextWidget(
+                            title: "Show result".toUpperCase(),
+                            textStyle: TextStyle(
+                              color: colorWhite,
+                            ))),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       );
     },
-  );
+  ).whenComplete(() {
+    // Dispose the animation controller when the dialog is closed
+    controller.reverse();
+  });
 }
 
 class PriceSlider extends StatefulWidget {
