@@ -1284,6 +1284,13 @@ class _SmartProductsState extends State<SmartProducts>
 }
 
 void showImageDialog(BuildContext context, dModel data) {
+  int selectedIndex = 0;
+  final CarouselController _controller = CarouselController();
+  List<String> imageList = [];
+  imageList.add(data.image);
+  imageList.add(data.image);
+  imageList.add(data.image);
+  imageList.add(data.image);
   showGeneralDialog(
     context: context,
     barrierColor: colorWhite, // Background color
@@ -1296,66 +1303,97 @@ void showImageDialog(BuildContext context, dModel data) {
       final curvedValue = Curves.easeInOutBack.transform(animation.value);
       final scale = initialScale + (1.0 - initialScale) * curvedValue;
 
-      return ScaleTransition(
-        scale: animation,
-        child: Material(
-          child: Stack(
-            children: [
-              Image.network(
-                data.image,
-                width: double.infinity,
-                height: double.infinity,
-                // color: colorAmber,
-                fit: BoxFit.fill,
-              ),
-              Positioned(
-                top: 25,
-                left: 5,
-                child: IconButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(colorWildSand)),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(
-                    Icons.close,
-                    size: 28,
-                    color: colorBlack,
+      return StatefulBuilder(builder: (BuildContext ctx, StateSetter setState) {
+        return ScaleTransition(
+          scale: animation,
+          child: Material(
+            child: Stack(
+              children: [
+                CarouselSlider.builder(
+                  carouselController: _controller,
+                  itemCount: imageList.length,
+                  options: CarouselOptions(
+                      height: double.infinity,
+                      autoPlay: false,
+                      enableInfiniteScroll: false,
+                      viewportFraction: 1.0,
+                      enlargeCenterPage: false,
+                      onPageChanged: (index, reas) {
+                        setState(() {
+                          selectedIndex = index;
+                        });
+                      }),
+                  itemBuilder: (BuildContext context, int itemIndex,
+                          int pageViewIndex) =>
+                      Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    decoration: BoxDecoration(color: colorWhite),
+                    child: Image.network(imageList[itemIndex],
+                        fit: BoxFit.fill,
+                        width: double.infinity,
+                        height: double.infinity),
                   ),
                 ),
-              ),
-              Positioned(
-                bottom: 20,
-                left: 10,
-                right: 10,
-                child: SizedBox(
-                  height: 80,
-                  child: ListView.builder(
-                      itemCount: 3,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (BuildContext ctx, index) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 5),
-                          child: Container(
-                            clipBehavior: Clip.hardEdge,
-                            padding: EdgeInsets.all(3),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: colorBlack)),
-                            child: Image.network(
-                              data.image,
-                              height: 60,
-                            ),
-                          ),
-                        );
-                      }),
+                Positioned(
+                  top: 25,
+                  left: 5,
+                  child: IconButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStatePropertyAll(colorWildSand)),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      Icons.close,
+                      size: 28,
+                      color: colorBlack,
+                    ),
+                  ),
                 ),
-              )
-            ],
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: SizedBox(
+                    height: 70,
+                    child: ListView.builder(
+                        itemCount: imageList.length,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (BuildContext ctx, index) {
+                          return InkWell(
+                            onTap: () {
+                              setState(() {
+                                selectedIndex = index;
+                                _controller.jumpToPage(selectedIndex);
+                              });
+                            },
+                            child: Container(
+                              clipBehavior: Clip.hardEdge,
+                              padding: EdgeInsets.all(3),
+                              margin: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                      color: selectedIndex == index
+                                          ? colorBlack
+                                          : colorMobyDick)),
+                              child: Image.network(
+                                imageList[index],
+                                height: 60,
+                                width: 60,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          );
+                        }),
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-      );
+        );
+      });
     },
   ).whenComplete(() {});
 }
