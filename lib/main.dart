@@ -1,3 +1,4 @@
+import 'package:apaniot/bloc/product_details.dart';
 import 'package:apaniot/firebase/firebaseapi.dart';
 import 'package:apaniot/firebase_options.dart';
 import 'package:apaniot/presentation/dashboard.dart';
@@ -5,6 +6,7 @@ import 'package:apaniot/presentation/dashboard/notifications/notifications.dart'
 import 'package:apaniot/presentation/welcome/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -23,16 +25,21 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (BuildContext context) => ProductDetailsBloc()),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+          useMaterial3: true,
+        ),
+        navigatorKey: navigatorKey,
+        routes: {'/notification_screen': (context) => NotificationsScreen()},
+        home: WelcomeScreen(),
       ),
-      navigatorKey: navigatorKey,
-      routes: {'/notification_screen': (context) => NotificationsScreen()},
-      home: WelcomeScreen(),
     );
   }
 }

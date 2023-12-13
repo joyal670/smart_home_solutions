@@ -52,6 +52,12 @@ class _HomePageState extends State<SmartHomeScreen>
     super.initState();
   }
 
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
   void getData() {
     data.clear();
     data.add(cModel(

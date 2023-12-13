@@ -4,6 +4,7 @@ import 'package:animated_digit/animated_digit.dart';
 import 'package:animated_list_item/animated_list_item.dart';
 import 'package:apaniot/presentation/dashboard/screens/Category.dart';
 import 'package:apaniot/presentation/dashboard/screens/Products.dart';
+import 'package:apaniot/presentation/dashboard/screens/product_details.dart';
 import 'package:apaniot/utils/colors.dart';
 import 'package:apaniot/utils/common_widgets.dart';
 import 'package:apaniot/utils/dims.dart';
@@ -48,6 +49,12 @@ class _HomePageScreenState extends State<HomePageScreen>
   void initState() {
     getData();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -1161,6 +1168,12 @@ class _SmartProductsState extends State<SmartProducts>
   }
 
   @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     _animationController = AnimationController(
       duration: const Duration(seconds: 4),
@@ -1182,101 +1195,112 @@ class _SmartProductsState extends State<SmartProducts>
           animationType: AnimationType.zoom,
           startX: 40,
           startY: 60,
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                    border: Border.all(color: colorWildSand),
-                    color: colorBackground,
-                    borderRadius: BorderRadius.circular(10)),
-                child: InkWell(
-                  onTap: () {
-                    // MultiImageProvider multiImageProvider = MultiImageProvider([
-                    //   Image.network(
-                    //     widget.data[index].image,
-                    //   ).image,
-                    //   Image.network(
-                    //     widget.data[index].image,
-                    //   ).image,
-                    //   Image.network(
-                    //     widget.data[index].image,
-                    //   ).image,
-                    //   Image.network(
-                    //     widget.data[index].image,
-                    //   ).image
-                    // ]);
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  PageTransition(
+                      type: PageTransitionType.rightToLeft,
+                      child: ProductDetailsScreen(
+                        data: widget.data[index],
+                      )));
+            },
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: colorWildSand),
+                      color: colorBackground,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: InkWell(
+                    onTap: () {
+                      // MultiImageProvider multiImageProvider = MultiImageProvider([
+                      //   Image.network(
+                      //     widget.data[index].image,
+                      //   ).image,
+                      //   Image.network(
+                      //     widget.data[index].image,
+                      //   ).image,
+                      //   Image.network(
+                      //     widget.data[index].image,
+                      //   ).image,
+                      //   Image.network(
+                      //     widget.data[index].image,
+                      //   ).image
+                      // ]);
 
-                    // showImageViewerPager(context, multiImageProvider,
-                    //     onPageChanged: (page) {
-                    //   print("page changed to $page");
-                    // }, onViewerDismissed: (page) {
-                    //   print("dismissed while on page $page");
-                    // });
-                    showImageDialog(context, widget.data[index]);
-                  },
-                  child: Stack(
-                    children: [
-                      Align(
-                        alignment: Alignment.center,
-                        child: SizedBox(
-                          height: 100,
-                          width: 100,
-                          child: Image.network(
-                            widget.data[index].image,
-                            fit: BoxFit.fill,
+                      // showImageViewerPager(context, multiImageProvider,
+                      //     onPageChanged: (page) {
+                      //   print("page changed to $page");
+                      // }, onViewerDismissed: (page) {
+                      //   print("dismissed while on page $page");
+                      // });
+                      showImageDialog(context, widget.data[index]);
+                    },
+                    child: Stack(
+                      children: [
+                        Align(
+                          alignment: Alignment.center,
+                          child: SizedBox(
+                            height: 100,
+                            width: 100,
+                            child: Image.network(
+                              widget.data[index].image,
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
-                      ),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: CircleAvatar(
-                          radius: 15,
-                          backgroundColor: colorRed,
-                          child: Center(
-                            child: TextWidget(
-                                title: widget.data[index].discount,
-                                textStyle:
-                                    TextStyle(color: colorWhite, fontSize: 10)),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: CircleAvatar(
+                            radius: 15,
+                            backgroundColor: colorRed,
+                            child: Center(
+                              child: TextWidget(
+                                  title: widget.data[index].discount,
+                                  textStyle: TextStyle(
+                                      color: colorWhite, fontSize: 10)),
+                            ),
                           ),
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              height5,
-              TextWidget(
-                  title: widget.data[index].title,
-                  textStyle: TextStyle(
-                    color: colorBlack,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w400,
-                  )),
-              RatingBar.builder(
-                initialRating: double.parse(widget.data[index].rating),
-                direction: Axis.horizontal,
-                allowHalfRating: true,
-                itemCount: 5,
-                itemSize: 15,
-                ignoreGestures: true,
-                // itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                itemBuilder: (context, _) => Icon(
-                  Icons.star,
-                  color: colorBlue,
+                height5,
+                TextWidget(
+                    title: widget.data[index].title,
+                    textStyle: TextStyle(
+                      color: colorBlack,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400,
+                    )),
+                RatingBar.builder(
+                  initialRating: double.parse(widget.data[index].rating),
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemSize: 15,
+                  ignoreGestures: true,
+                  // itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                  itemBuilder: (context, _) => Icon(
+                    Icons.star,
+                    color: colorBlue,
+                  ),
+                  onRatingUpdate: (rating) {
+                    print(rating);
+                  },
                 ),
-                onRatingUpdate: (rating) {
-                  print(rating);
-                },
-              ),
-              TextWidget(
-                  title: '\$${widget.data[index].price}',
-                  textStyle: TextStyle(
-                    color: colorBlack,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w400,
-                  )),
-            ],
+                TextWidget(
+                    title: '\$${widget.data[index].price}',
+                    textStyle: TextStyle(
+                      color: colorBlack,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400,
+                    )),
+              ],
+            ),
           ),
         );
       }),
@@ -1442,7 +1466,6 @@ void showImageDialog(BuildContext context, dModel data) {
                             ),
                           ),
                         );
-                        ;
                       },
                     ),
                   ),
@@ -1479,6 +1502,12 @@ class _SmartTypesState extends State<SmartTypes> with TickerProviderStateMixin {
     );
     _animationController.forward();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
