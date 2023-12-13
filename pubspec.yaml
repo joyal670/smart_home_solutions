@@ -57,6 +57,7 @@ dependencies:
   flutter_local_notifications: ^16.2.0
   gson: ^0.1.4
   google_fonts: ^4.0.4
+  scrollable_positioned_list: ^0.3.8
 
 
 dev_dependencies:

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
 
 import 'package:animated_digit/animated_digit.dart';
 import 'package:animated_list_item/animated_list_item.dart';
@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
@@ -1288,8 +1289,17 @@ void showImageDialog(BuildContext context, dModel data) {
   final CarouselController _controller = CarouselController();
   List<String> imageList = [];
   imageList.add(data.image);
-  imageList.add(data.image);
-  imageList.add(data.image);
+  imageList.add('http://apaniot.com/images/virtuemart/product/162.jpg');
+  imageList.add('http://apaniot.com/images/virtuemart/product/551.jpg');
+  imageList.add('http://apaniot.com/images/virtuemart/product/88.jpg');
+  imageList.add('http://apaniot.com/images/virtuemart/product/118.jpg');
+  imageList.add('http://apaniot.com/images/virtuemart/product/162.jpg');
+  imageList.add('http://apaniot.com/images/virtuemart/product/551.jpg');
+  imageList.add('http://apaniot.com/images/virtuemart/product/88.jpg');
+  imageList.add('http://apaniot.com/images/virtuemart/product/118.jpg');
+
+  ItemScrollController _scrollController = ItemScrollController();
+
   imageList.add(data.image);
   showGeneralDialog(
     context: context,
@@ -1321,6 +1331,9 @@ void showImageDialog(BuildContext context, dModel data) {
                       onPageChanged: (index, reas) {
                         setState(() {
                           selectedIndex = index;
+                          _scrollController.scrollTo(
+                              index: selectedIndex,
+                              duration: Duration(seconds: 1));
                         });
                       }),
                   itemBuilder: (BuildContext context, int itemIndex,
@@ -1355,38 +1368,43 @@ void showImageDialog(BuildContext context, dModel data) {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: SizedBox(
-                    height: 70,
-                    child: ListView.builder(
-                        itemCount: imageList.length,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (BuildContext ctx, index) {
-                          return InkWell(
-                            onTap: () {
-                              setState(() {
-                                selectedIndex = index;
-                                _controller.jumpToPage(selectedIndex);
-                              });
-                            },
-                            child: Container(
-                              clipBehavior: Clip.hardEdge,
-                              padding: EdgeInsets.all(3),
-                              margin: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                      color: selectedIndex == index
-                                          ? colorBlack
-                                          : colorMobyDick)),
-                              child: Image.network(
-                                imageList[index],
-                                height: 60,
-                                width: 60,
-                                fit: BoxFit.fill,
-                              ),
+                    height: 60,
+                    child: ScrollablePositionedList.builder(
+                      itemScrollController: _scrollController,
+                      itemCount: imageList.length,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            setState(() {
+                              selectedIndex = index;
+                              _controller.jumpToPage(selectedIndex);
+                            });
+                          },
+                          child: Container(
+                            width: 60,
+                            height: 60,
+                            clipBehavior: Clip.hardEdge,
+                            padding: EdgeInsets.all(3),
+                            margin: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                    color: selectedIndex == index
+                                        ? colorBlack
+                                        : colorMobyDick)),
+                            child: Image.network(
+                              imageList[index],
+                              height: 60,
+                              width: 60,
+                              fit: BoxFit.fill,
                             ),
-                          );
-                        }),
+                          ),
+                        );
+                        ;
+                      },
+                    ),
                   ),
                 )
               ],
@@ -1399,7 +1417,7 @@ void showImageDialog(BuildContext context, dModel data) {
 }
 
 class SmartTypes extends StatefulWidget {
-  SmartTypes({
+  const SmartTypes({
     super.key,
     required this.data,
   });
