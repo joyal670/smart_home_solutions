@@ -1301,6 +1301,7 @@ void showImageDialog(BuildContext context, dModel data) {
   ItemScrollController _scrollController = ItemScrollController();
 
   imageList.add(data.image);
+  bool isBookMarked = false;
   showGeneralDialog(
     context: context,
     barrierColor: colorWhite, // Background color
@@ -1347,6 +1348,45 @@ void showImageDialog(BuildContext context, dModel data) {
                         width: double.infinity,
                         height: double.infinity),
                   ),
+                ),
+                Positioned(
+                  top: 25,
+                  right: 5,
+                  child: IconButton.filled(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(colorWildSand2)),
+                      onPressed: () {
+                        // if (isBookMarked) {
+                        //   isBookMarked = false;
+                        //   ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                        //   ScaffoldMessenger.of(context).showSnackBar(
+                        //     SnackBar(
+                        //       content: Text("added to favorites list"),
+                        //     ),
+                        //   );
+                        // } else {
+                        //   isBookMarked = true;
+                        //   ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                        //   ScaffoldMessenger.of(context).showSnackBar(
+                        //     SnackBar(
+                        //       content: Text("removed from favorites list"),
+                        //     ),
+                        //   );
+                        // }
+                        setState(() {
+                          isBookMarked = !isBookMarked;
+                        });
+                      },
+                      icon: isBookMarked
+                          ? Icon(
+                              Icons.favorite,
+                              color: colorRed,
+                            )
+                          : Icon(
+                              Icons.favorite_border,
+                              color: colorBlack,
+                            )),
                 ),
                 Positioned(
                   top: 25,
