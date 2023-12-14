@@ -84,15 +84,19 @@ class _CartScreenState extends State<CartScreen> {
       appBar: AppBar(),
       backgroundColor: colorWhite,
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(10.0),
         child: TextButton(
-          onPressed: model.isEmpty ? null : () {},
+          onPressed: model.isEmpty
+              ? null
+              : () {
+                  showSucessDialog(context);
+                },
           child: Text(
             model.isEmpty ? "Empty Cart" : 'Checkout',
             style: TextStyle(color: colorWhite),
           ),
           style: TextButton.styleFrom(
-              backgroundColor: model.isEmpty ? colorWildSand : colorBlue,
+              backgroundColor: model.isEmpty ? colorWildSand : colorDarkBlue,
               minimumSize: Size.fromHeight(50),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5))),
@@ -318,4 +322,88 @@ class _CartScreenState extends State<CartScreen> {
       ),
     );
   }
+}
+
+void showSucessDialog(BuildContext context) {
+  showGeneralDialog(
+      context: context,
+      barrierColor: colorWhite, // Background color
+      barrierDismissible: false,
+      barrierLabel: 'Dialog',
+      transitionDuration: Duration(milliseconds: 500),
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return ScaleTransition(
+          scale: animation,
+          child: Scaffold(
+            backgroundColor: colorDarkBlue,
+            body: Column(
+              children: [
+                Expanded(
+                    flex: 1,
+                    child: Container(
+                      color: colorDarkBlue,
+                      child: Center(
+                          child: Text(
+                        'Thanks!',
+                        style: TextStyle(
+                            color: colorWhite,
+                            fontSize: 25,
+                            fontWeight: FontWeight.w900),
+                      )),
+                    )),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: colorWhite,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40),
+                        topRight: Radius.circular(40),
+                      ),
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          height20,
+                          CircleAvatar(
+                            radius: 35,
+                            backgroundColor: colorDarkBlue,
+                            child: Icon(
+                              Icons.done,
+                              color: colorWhite,
+                            ),
+                          ),
+                          height10,
+                          Text(
+                            'Thanks you for purchasing',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 19,
+                            ),
+                          ),
+                          Text(
+                            'Your order will be shipped in \n2-4 international days.',
+                            style: TextStyle(
+                              fontSize: 13,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          height30,
+                          OutlinedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                              },
+                              child: Text('Continue Shopping'.toUpperCase()))
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      });
 }

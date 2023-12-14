@@ -22,3 +22,5 @@ const colorRedAccent = Colors.redAccent;
 const colorBlueAccent = Colors.blueAccent;
 const colorpOrange = Color(0xffF87547);
 const colorpOBackground = Color(0xffF8F8F8);
+const colorWildSand3 = Color.fromARGB(255, 251, 251, 251);
+const colorDarkBlue = Color(0xff012269);

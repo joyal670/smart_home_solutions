@@ -25,29 +25,64 @@ class ProductDetailsScreen extends StatelessWidget {
 
     ItemScrollController _scrollController = ItemScrollController();
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: colorBlue,
-          onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text("Added to cart"),
-                duration: Duration(seconds: 2),
-                action: SnackBarAction(
-                  label: "Dismiss",
-                  onPressed: () {
-                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                  },
-                  textColor: colorOrange,
+        // floatingActionButton: FloatingActionButton(
+        //   backgroundColor: colorBlue,
+        //   onPressed: () {
+        //     ScaffoldMessenger.of(context).showSnackBar(
+        //       SnackBar(
+        //         content: Text("Added to cart"),
+        //         duration: Duration(seconds: 2),
+        //         action: SnackBarAction(
+        //           label: "Dismiss",
+        //           onPressed: () {
+        //             ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        //           },
+        //           textColor: colorOrange,
+        //         ),
+        //       ),
+        //     );
+        //   },
+        //   child: Icon(
+        //     Icons.add_shopping_cart_outlined,
+        //     color: colorWhite,
+        //   ),
+        // ),
+        backgroundColor: colorWildSand3,
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: ElevatedButton(
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("Added to cart"),
+                  duration: Duration(seconds: 3),
+                  action: SnackBarAction(
+                    label: "Dismiss",
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                    },
+                    textColor: colorOrange,
+                  ),
                 ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+                elevation: 5,
+                backgroundColor: colorBlack,
+                minimumSize: Size.fromHeight(50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                    4,
+                  ),
+                )),
+            child: Text(
+              'Added to Cart',
+              style: TextStyle(
+                color: colorWhite,
               ),
-            );
-          },
-          child: Icon(
-            Icons.add_shopping_cart_outlined,
-            color: colorWhite,
+            ),
           ),
         ),
-        backgroundColor: colorWildSand2,
         body: BlocBuilder<ProductDetailsBloc, ProductDetailsBlocState>(
           builder: (BuildContext ctx, state) {
             if (state.isLoading) {
@@ -92,38 +127,69 @@ class ProductDetailsScreen extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      TextWidget(
-                                          title: '\$',
-                                          textStyle: TextStyle(
-                                            fontWeight: FontWeight.bold,
+                                      CircleAvatar(
+                                        radius: 20,
+                                        backgroundColor: colorRed,
+                                        child: IconButton(
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStatePropertyAll(
+                                                    colorWhite),
+                                          ),
+                                          icon: Icon(
+                                            state.isBookMared
+                                                ? Icons.favorite
+                                                : Icons.favorite_border,
                                             color: colorRed,
-                                            fontSize: 20,
-                                          )),
-                                      width5,
-                                      TextWidget(
-                                          title: state.data.price,
-                                          textStyle: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18,
-                                          )),
+                                          ),
+                                          onPressed: () {
+                                            BlocProvider.of<ProductDetailsBloc>(
+                                                    context)
+                                                .add(
+                                              OnClickBookmark(),
+                                            );
+
+                                            ScaffoldMessenger.of(context)
+                                                .hideCurrentSnackBar();
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(state.isBookMared
+                                                    ? 'Removed from favorite list'
+                                                    : 'Added to favorite list'),
+                                                duration: Duration(seconds: 1),
+                                                action: SnackBarAction(
+                                                  label: "Dismiss",
+                                                  onPressed: () {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .hideCurrentSnackBar();
+                                                  },
+                                                  textColor: colorOrange,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                      width10,
+                                      CircleAvatar(
+                                        radius: 20,
+                                        backgroundColor: colorWhite,
+                                        child: IconButton(
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStatePropertyAll(
+                                                    colorWhite),
+                                          ),
+                                          icon: const Icon(
+                                            Icons.share,
+                                            color: colorGrey,
+                                          ),
+                                          onPressed: () {},
+                                        ),
+                                      ),
                                     ],
-                                  ),
-                                  RatingBar.builder(
-                                    initialRating:
-                                        double.parse(state.data.rating),
-                                    direction: Axis.horizontal,
-                                    allowHalfRating: true,
-                                    itemCount: 5,
-                                    itemSize: 15,
-                                    ignoreGestures: true,
-                                    // itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                                    itemBuilder: (context, _) => Icon(
-                                      Icons.star,
-                                      color: colorBlue,
-                                    ),
-                                    onRatingUpdate: (rating) {
-                                      print(rating);
-                                    },
                                   ),
                                 ],
                               ),
@@ -131,40 +197,100 @@ class ProductDetailsScreen extends StatelessWidget {
                             width15
                           ],
                         ),
-                        height20,
+                        height30,
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            IconButton(
-                              onPressed: () {
-                                BlocProvider.of<ProductDetailsBloc>(context)
-                                    .add(
-                                  OnClickRemoveCart(),
-                                );
-                              },
-                              icon: Icon(
-                                Icons.remove,
-                              ),
-                              iconSize: 20,
-                            ),
-                            Container(
-                                width: 40,
-                                padding: EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: colorGrey),
-                                  borderRadius: BorderRadius.circular(10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              //  mainAxisAlignment: MainAxisAlignment.start,
+                              //  mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    TextWidget(
+                                        title: '\$',
+                                        textStyle: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: colorBlack,
+                                          fontSize: 20,
+                                        )),
+                                    TextWidget(
+                                        title: state.data.price,
+                                        textStyle: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 22,
+                                        )),
+                                  ],
                                 ),
-                                child:
-                                    Center(child: Text(state.qty.toString()))),
-                            IconButton(
-                              onPressed: () {
-                                BlocProvider.of<ProductDetailsBloc>(context)
-                                    .add(
-                                  OnClickAddCart(),
-                                );
-                              },
-                              icon: Icon(Icons.add),
-                              iconSize: 20,
-                            )
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(state.data.rating),
+                                    width5,
+                                    RatingBar.builder(
+                                      initialRating:
+                                          double.parse(state.data.rating),
+                                      direction: Axis.horizontal,
+                                      allowHalfRating: true,
+                                      itemCount: 5,
+                                      itemSize: 15,
+                                      ignoreGestures: true,
+                                      // itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                                      itemBuilder: (context, _) => Icon(
+                                        Icons.star,
+                                        color: Colors.yellow,
+                                      ),
+                                      onRatingUpdate: (rating) {
+                                        print(rating);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    BlocProvider.of<ProductDetailsBloc>(context)
+                                        .add(
+                                      OnClickRemoveCart(),
+                                    );
+                                  },
+                                  icon: Icon(
+                                    Icons.remove,
+                                  ),
+                                  iconSize: 20,
+                                ),
+                                Container(
+                                    width: 40,
+                                    padding: EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: colorGrey),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Center(
+                                        child: Text(state.qty.toString()))),
+                                IconButton(
+                                  onPressed: () {
+                                    BlocProvider.of<ProductDetailsBloc>(context)
+                                        .add(
+                                      OnClickAddCart(),
+                                    );
+                                  },
+                                  icon: Icon(Icons.add),
+                                  iconSize: 20,
+                                )
+                              ],
+                            ),
                           ],
                         ),
                         height20,
@@ -207,7 +333,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         ),
                         height10,
                         Text(
-                          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+                          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
                           style: TextStyle(
                             letterSpacing: 1,
                             wordSpacing: 2,
@@ -370,8 +496,8 @@ class AppbarWidget extends StatelessWidget {
               backgroundColor: MaterialStatePropertyAll(colorWildSand2),
             ),
             icon: const Icon(
-              Icons.favorite_border,
-              color: colorRed,
+              Icons.shopping_bag,
+              color: colorBlack,
             ),
             onPressed: () {},
           ),
@@ -384,7 +510,7 @@ class AppbarWidget extends StatelessWidget {
           width: double.maxFinite,
           padding: const EdgeInsets.only(top: 20, bottom: 10),
           decoration: BoxDecoration(
-            color: colorWildSand2,
+            color: colorWildSand3,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(40),
               topRight: Radius.circular(40),

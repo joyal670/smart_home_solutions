@@ -13,6 +13,7 @@ class ProductDetailsBlocState {
   List<aModel> colors;
   List<aModel> sizes;
   int qty;
+  bool isBookMared;
 
   ProductDetailsBlocState({
     required this.isLoading,
@@ -23,6 +24,7 @@ class ProductDetailsBlocState {
     required this.colors,
     required this.sizes,
     required this.qty,
+    required this.isBookMared,
   });
 
   factory ProductDetailsBlocState.initial() => ProductDetailsBlocState(
@@ -34,6 +36,7 @@ class ProductDetailsBlocState {
         colors: [],
         sizes: [],
         qty: 1,
+        isBookMared: false,
       );
 }
 
@@ -70,6 +73,8 @@ class OnClickAddCart extends ProductDetailsEvent {}
 
 class OnClickRemoveCart extends ProductDetailsEvent {}
 
+class OnClickBookmark extends ProductDetailsEvent {}
+
 /* --------------------------------------------------------------------------------------  */
 // bloc
 class ProductDetailsBloc
@@ -86,6 +91,7 @@ class ProductDetailsBloc
         colors: [],
         sizes: [],
         qty: 1,
+        isBookMared: false,
       ));
 
       List<aModel> imageList = [];
@@ -153,6 +159,7 @@ class ProductDetailsBloc
           colors: colorList,
           sizes: sizesList,
           qty: 1,
+          isBookMared: false,
         ),
       );
     });
@@ -173,6 +180,7 @@ class ProductDetailsBloc
         colors: state.colors,
         sizes: state.sizes,
         qty: state.qty,
+        isBookMared: state.isBookMared,
       ));
     });
 
@@ -192,6 +200,7 @@ class ProductDetailsBloc
         colors: state.colors,
         sizes: state.sizes,
         qty: state.qty,
+        isBookMared: state.isBookMared,
       ));
     });
 
@@ -211,6 +220,7 @@ class ProductDetailsBloc
         colors: state.colors,
         sizes: state.sizes,
         qty: state.qty,
+        isBookMared: state.isBookMared,
       ));
     });
 
@@ -227,6 +237,7 @@ class ProductDetailsBloc
         colors: state.colors,
         sizes: state.sizes,
         qty: currentQty,
+        isBookMared: state.isBookMared,
       ));
     });
 
@@ -244,6 +255,23 @@ class ProductDetailsBloc
         colors: state.colors,
         sizes: state.sizes,
         qty: currentQty,
+        isBookMared: state.isBookMared,
+      ));
+    });
+
+    on<OnClickBookmark>((event, emit) {
+      state.isBookMared = !state.isBookMared;
+      // result
+      emit(ProductDetailsBlocState(
+        isLoading: false,
+        images: state.images,
+        isError: false,
+        currentImageIndex: state.currentImageIndex,
+        data: state.data,
+        colors: state.colors,
+        sizes: state.sizes,
+        qty: state.qty,
+        isBookMared: state.isBookMared,
       ));
     });
   }
