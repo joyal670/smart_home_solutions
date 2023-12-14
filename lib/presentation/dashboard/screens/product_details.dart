@@ -25,6 +25,28 @@ class ProductDetailsScreen extends StatelessWidget {
 
     ItemScrollController _scrollController = ItemScrollController();
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: colorBlue,
+          onPressed: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text("Added to cart"),
+                duration: Duration(seconds: 2),
+                action: SnackBarAction(
+                  label: "Dismiss",
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  },
+                  textColor: colorOrange,
+                ),
+              ),
+            );
+          },
+          child: Icon(
+            Icons.add_shopping_cart_outlined,
+            color: colorWhite,
+          ),
+        ),
         backgroundColor: colorWildSand2,
         body: BlocBuilder<ProductDetailsBloc, ProductDetailsBlocState>(
           builder: (BuildContext ctx, state) {
@@ -110,6 +132,42 @@ class ProductDetailsScreen extends StatelessWidget {
                           ],
                         ),
                         height20,
+                        Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                BlocProvider.of<ProductDetailsBloc>(context)
+                                    .add(
+                                  OnClickRemoveCart(),
+                                );
+                              },
+                              icon: Icon(
+                                Icons.remove,
+                              ),
+                              iconSize: 20,
+                            ),
+                            Container(
+                                width: 40,
+                                padding: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: colorGrey),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child:
+                                    Center(child: Text(state.qty.toString()))),
+                            IconButton(
+                              onPressed: () {
+                                BlocProvider.of<ProductDetailsBloc>(context)
+                                    .add(
+                                  OnClickAddCart(),
+                                );
+                              },
+                              icon: Icon(Icons.add),
+                              iconSize: 20,
+                            )
+                          ],
+                        ),
+                        height20,
                         TextWidget(
                           title: 'Availabe sizes',
                           textStyle: TextStyle(
@@ -120,38 +178,9 @@ class ProductDetailsScreen extends StatelessWidget {
                         height10,
                         SizedBox(
                           height: 40,
-                          child: ListView.builder(
-                              itemCount: state.colors.length,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (BuildContext ctx, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  child: SizedBox(
-                                    height: 20,
-                                    child: OutlinedButton(
-                                      onPressed: () {
-                                        BlocProvider.of<ProductDetailsBloc>(
-                                                context)
-                                            .add(
-                                          OnClickColor(index: index),
-                                        );
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor: Color(int.parse(
-                                              state.colors[index].name)),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          )),
-                                      child: state.colors[index].isSelected
-                                          ? Icon(Icons.task_alt)
-                                          : null,
-                                    ),
-                                  ),
-                                );
-                              }),
+                          child: SizeWidget(
+                            state: state,
+                          ),
                         ),
                         height20,
                         TextWidget(
@@ -163,31 +192,26 @@ class ProductDetailsScreen extends StatelessWidget {
                         ),
                         height10,
                         SizedBox(
-                          height: 50,
-                          child: ListView.builder(
-                              itemCount: state.colors.length,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (BuildContext ctx, index) {
-                                return ElevatedButton(
-                                  onPressed: () {
-                                    BlocProvider.of<ProductDetailsBloc>(context)
-                                        .add(
-                                      OnClickColor(index: index),
-                                    );
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    fixedSize: const Size(10, 10),
-                                    backgroundColor: Color(
-                                        int.parse(state.colors[index].name)),
-                                    shape: CircleBorder(),
-                                    padding: EdgeInsets.all(0),
-                                  ),
-                                  child: state.colors[index].isSelected
-                                      ? Icon(Icons.task_alt)
-                                      : null,
-                                );
-                              }),
+                          height: 30,
+                          child: ColorWidget(
+                            state: state,
+                          ),
+                        ),
+                        height20,
+                        TextWidget(
+                          title: 'Description',
+                          textStyle: TextStyle(
+                              color: colorBlack,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16),
+                        ),
+                        height10,
+                        Text(
+                          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+                          style: TextStyle(
+                            letterSpacing: 1,
+                            wordSpacing: 2,
+                          ),
                         )
                       ],
                     )),
@@ -195,6 +219,94 @@ class ProductDetailsScreen extends StatelessWidget {
             }
           },
         ));
+  }
+}
+
+class ColorWidget extends StatelessWidget {
+  final ProductDetailsBlocState state;
+  const ColorWidget({
+    super.key,
+    required this.state,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        itemCount: state.colors.length,
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (BuildContext ctx, index) {
+          return SizedBox(
+            width: 50,
+            child: ElevatedButton(
+              onPressed: () {
+                BlocProvider.of<ProductDetailsBloc>(context).add(
+                  OnClickColor(index: index),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                // fixedSize: const Size(10, 10),
+                // maximumSize: Size(30, 50),
+                backgroundColor: Color(int.parse(state.colors[index].name)),
+                shape: CircleBorder(),
+                padding: EdgeInsets.all(0),
+              ),
+              child: state.colors[index].isSelected
+                  ? Icon(
+                      Icons.task_alt,
+                      size: 17,
+                      color: colorBlue,
+                    )
+                  : null,
+            ),
+          );
+        });
+  }
+}
+
+class SizeWidget extends StatelessWidget {
+  final ProductDetailsBlocState state;
+  const SizeWidget({
+    super.key,
+    required this.state,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        itemCount: state.sizes.length,
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (BuildContext ctx, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: SizedBox(
+              height: 15,
+              child: OutlinedButton(
+                onPressed: () {
+                  BlocProvider.of<ProductDetailsBloc>(context).add(
+                    OnClickSize(index: index),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                    //  fixedSize: const Size(20, 10),
+                    backgroundColor:
+                        state.sizes[index].isSelected ? colorBlue : colorWhite,
+                    side: BorderSide(color: colorMobyDick),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    )),
+                child: Text(
+                  state.sizes[index].name,
+                  style: TextStyle(
+                      color: state.sizes[index].isSelected
+                          ? colorWhite
+                          : colorBlack),
+                ),
+              ),
+            ),
+          );
+        });
   }
 }
 
@@ -216,10 +328,11 @@ class AppbarWidget extends StatelessWidget {
       backgroundColor: colorWildSand,
       automaticallyImplyLeading: true,
       iconTheme: const IconThemeData(color: colorBlack),
+      toolbarHeight: 70,
       leading: IconButton.outlined(
         style: ButtonStyle(
-          backgroundColor: MaterialStatePropertyAll(colorWildSand2),
-        ),
+            backgroundColor: MaterialStatePropertyAll(colorWildSand2),
+            side: MaterialStatePropertyAll(BorderSide(color: colorGrey))),
         icon: const Icon(Icons.arrow_back),
         onPressed: () => Navigator.pop(context, false),
       ),
@@ -229,6 +342,7 @@ class AppbarWidget extends StatelessWidget {
       flexibleSpace: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           var top = constraints.biggest.height;
+
           return FlexibleSpaceBar(
             centerTitle: false,
             collapseMode: CollapseMode.parallax,
@@ -322,7 +436,7 @@ class AppbarWidget extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(
                           color: _state.images[index].isSelected
-                              ? colorBlack
+                              ? colorBlue
                               : colorMobyDick,
                         ),
                       ),

@@ -11,6 +11,8 @@ class ProductDetailsBlocState {
   dModel data;
   bool isError;
   List<aModel> colors;
+  List<aModel> sizes;
+  int qty;
 
   ProductDetailsBlocState({
     required this.isLoading,
@@ -19,15 +21,20 @@ class ProductDetailsBlocState {
     required this.currentImageIndex,
     required this.data,
     required this.colors,
+    required this.sizes,
+    required this.qty,
   });
 
   factory ProductDetailsBlocState.initial() => ProductDetailsBlocState(
-      isLoading: true,
-      images: [],
-      isError: false,
-      currentImageIndex: 0,
-      data: dModel(title: '', price: '', image: '', rating: '', discount: ''),
-      colors: []);
+        isLoading: true,
+        images: [],
+        isError: false,
+        currentImageIndex: 0,
+        data: dModel(title: '', price: '', image: '', rating: '', discount: ''),
+        colors: [],
+        sizes: [],
+        qty: 1,
+      );
 }
 
 /* --------------------------------------------------------------------------------------  */
@@ -53,6 +60,16 @@ class OnClickColor extends ProductDetailsEvent {
   OnClickColor({required this.index});
 }
 
+class OnClickSize extends ProductDetailsEvent {
+  final int index;
+
+  OnClickSize({required this.index});
+}
+
+class OnClickAddCart extends ProductDetailsEvent {}
+
+class OnClickRemoveCart extends ProductDetailsEvent {}
+
 /* --------------------------------------------------------------------------------------  */
 // bloc
 class ProductDetailsBloc
@@ -61,13 +78,15 @@ class ProductDetailsBloc
     on<GetDetails>((event, emit) async {
       // loading
       emit(ProductDetailsBlocState(
-          isLoading: true,
-          images: [],
-          isError: false,
-          currentImageIndex: 0,
-          data:
-              dModel(title: '', price: '', image: '', rating: '', discount: ''),
-          colors: []));
+        isLoading: true,
+        images: [],
+        isError: false,
+        currentImageIndex: 0,
+        data: dModel(title: '', price: '', image: '', rating: '', discount: ''),
+        colors: [],
+        sizes: [],
+        qty: 1,
+      ));
 
       List<aModel> imageList = [];
       print(event.model.image);
@@ -118,14 +137,23 @@ class ProductDetailsBloc
       colorList.add(aModel(name: '0xFFFFF8E1', isSelected: false));
       colorList.add(aModel(name: '0xFF0097A7', isSelected: false));
 
+      List<aModel> sizesList = [];
+      sizesList.add(aModel(name: 'US 6', isSelected: true));
+      sizesList.add(aModel(name: 'US 7', isSelected: false));
+      sizesList.add(aModel(name: 'US 8', isSelected: false));
+      sizesList.add(aModel(name: 'US 9', isSelected: false));
+
       emit(
         ProductDetailsBlocState(
-            isLoading: false,
-            images: imageList,
-            isError: false,
-            currentImageIndex: 0,
-            data: event.model,
-            colors: colorList),
+          isLoading: false,
+          images: imageList,
+          isError: false,
+          currentImageIndex: 0,
+          data: event.model,
+          colors: colorList,
+          sizes: sizesList,
+          qty: 1,
+        ),
       );
     });
 
@@ -137,12 +165,15 @@ class ProductDetailsBloc
 
       // result
       emit(ProductDetailsBlocState(
-          isLoading: false,
-          images: state.images,
-          isError: false,
-          currentImageIndex: event.index,
-          data: state.data,
-          colors: state.colors));
+        isLoading: false,
+        images: state.images,
+        isError: false,
+        currentImageIndex: event.index,
+        data: state.data,
+        colors: state.colors,
+        sizes: state.sizes,
+        qty: state.qty,
+      ));
     });
 
     on<OnClickColor>((event, emit) async {
@@ -153,12 +184,67 @@ class ProductDetailsBloc
 
       // result
       emit(ProductDetailsBlocState(
-          isLoading: false,
-          images: state.images,
-          isError: false,
-          currentImageIndex: state.currentImageIndex,
-          data: state.data,
-          colors: state.colors));
+        isLoading: false,
+        images: state.images,
+        isError: false,
+        currentImageIndex: state.currentImageIndex,
+        data: state.data,
+        colors: state.colors,
+        sizes: state.sizes,
+        qty: state.qty,
+      ));
+    });
+
+    on<OnClickSize>((event, emit) async {
+      for (var element in state.sizes) {
+        element.isSelected = false;
+      }
+      state.sizes[event.index].isSelected = true;
+
+      // result
+      emit(ProductDetailsBlocState(
+        isLoading: false,
+        images: state.images,
+        isError: false,
+        currentImageIndex: state.currentImageIndex,
+        data: state.data,
+        colors: state.colors,
+        sizes: state.sizes,
+        qty: state.qty,
+      ));
+    });
+
+    on<OnClickAddCart>((event, emit) {
+      int currentQty = state.qty;
+      currentQty++;
+      // result
+      emit(ProductDetailsBlocState(
+        isLoading: false,
+        images: state.images,
+        isError: false,
+        currentImageIndex: state.currentImageIndex,
+        data: state.data,
+        colors: state.colors,
+        sizes: state.sizes,
+        qty: currentQty,
+      ));
+    });
+
+    on<OnClickRemoveCart>((event, emit) {
+      int currentQty = state.qty;
+      currentQty--;
+      if (currentQty <= 1) currentQty = 1;
+      // result
+      emit(ProductDetailsBlocState(
+        isLoading: false,
+        images: state.images,
+        isError: false,
+        currentImageIndex: state.currentImageIndex,
+        data: state.data,
+        colors: state.colors,
+        sizes: state.sizes,
+        qty: currentQty,
+      ));
     });
   }
 }

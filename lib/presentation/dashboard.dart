@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, prefer_const_literals_to_create_immutables
 
+import 'package:apaniot/presentation/dashboard/cart/cartscreen.dart';
 import 'package:apaniot/presentation/dashboard/home/homepage.dart';
 import 'package:apaniot/presentation/dashboard/feeds/newfeeds.dart';
 import 'package:apaniot/presentation/dashboard/notifications/notifications.dart';
@@ -104,7 +105,13 @@ class _DashboardScreenState extends State<DashboardScreen>
             //     child: Icon(Icons.vertical_distribute)),
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          type: PageTransitionType.rightToLeft,
+                          child: CartScreen()));
+                },
                 icon: Icon(
                   Icons.shopping_bag_outlined,
                   size: 28,
