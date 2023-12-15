@@ -6,6 +6,7 @@ import 'package:apaniot/presentation/dashboard/feeds/newfeeds.dart';
 import 'package:apaniot/presentation/dashboard/notifications/notifications.dart';
 import 'package:apaniot/presentation/dashboard/smarthome/smart_home.dart';
 import 'package:apaniot/presentation/sidemenu/contactus.dart';
+import 'package:apaniot/presentation/sidemenu/history/completed.dart';
 import 'package:apaniot/presentation/sidemenu/information/information.dart';
 import 'package:apaniot/presentation/sidemenu/support/support.dart';
 import 'package:apaniot/utils/colors.dart';
@@ -17,6 +18,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
+
+import 'sidemenu/history/PurchaseHistory.dart';
 
 class DashboardScreen extends StatefulWidget {
   DashboardScreen({super.key});
@@ -176,6 +179,26 @@ class _DashboardScreenState extends State<DashboardScreen>
                             onTap: () {
                               // Then close the drawer
                               Navigator.pop(context);
+                            },
+                          ),
+                          ListTile(
+                            title: const Text(
+                              'Purchase history',
+                              style: TextStyle(
+                                color: colorBlack,
+                              ),
+                            ),
+                            leading: Icon(
+                              Icons.history,
+                              color: colorBlack,
+                            ),
+                            onTap: () {
+                              // Then close the drawer
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType.rightToLeft,
+                                      child: CompletedScreen()));
                             },
                           ),
                           ListTile(

@@ -463,8 +463,8 @@ class counterWidget1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    controller1.resetValue(0);
-    controller1.addValue(double.parse(data7.url));
+    //  controller1.resetValue(0);
+    //  controller1.addValue(double.parse(data7.url));
     print(controller1.value);
     return Container(
       decoration: BoxDecoration(
@@ -557,8 +557,8 @@ class counterWidget2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    controller2.resetValue(0);
-    controller2.addValue(double.parse(data7.url));
+    // controller2.resetValue(0);
+    // controller2.addValue(double.parse(data7.url));
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -643,8 +643,8 @@ class counterWidget3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    controller3.resetValue(0);
-    controller3.addValue(double.parse(data7.url));
+    //  controller3.resetValue(0);
+    //  controller3.addValue(double.parse(data7.url));
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
