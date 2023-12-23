@@ -161,6 +161,7 @@ class RecentWidget extends StatelessWidget {
                   context,
                   PageTransition(
                       type: PageTransitionType.rightToLeft,
+                      duration: Duration(milliseconds: 500),
                       child: FeedsDetails(
                         data: data[index],
                       )));
@@ -265,6 +266,7 @@ class FeedsWidget extends StatelessWidget {
                     context,
                     PageTransition(
                         type: PageTransitionType.rightToLeft,
+                        duration: Duration(milliseconds: 500),
                         child: FeedsDetails(
                           data: data[index],
                         )));
@@ -278,10 +280,13 @@ class FeedsWidget extends StatelessWidget {
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
-                        child: Image.network(
-                          data[index].image,
-                          height: 350,
-                          fit: BoxFit.cover,
+                        child: Hero(
+                          tag: data[index],
+                          child: Image.network(
+                            data[index].image,
+                            height: 350,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                       Positioned(

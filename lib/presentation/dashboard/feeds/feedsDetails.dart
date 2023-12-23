@@ -32,10 +32,13 @@ class FeedsDetails extends StatelessWidget {
                   pinned: true,
                   flexibleSpace: FlexibleSpaceBar(
                     centerTitle: false,
-                    background: Image.network(
-                      data.image,
-                      fit: BoxFit.cover,
-                      width: double.maxFinite,
+                    background: Hero(
+                      tag: data,
+                      child: Image.network(
+                        data.image,
+                        fit: BoxFit.cover,
+                        width: double.maxFinite,
+                      ),
                     ),
                   ),
                   actions: [
