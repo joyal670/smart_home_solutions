@@ -80,7 +80,7 @@ class NewFeedsScreen extends StatelessWidget {
     data.clear();
     data.add(Model(
         image:
-            "http://apaniot.com/cache/resized/a3b33dc17302c1df1b43a64e9ea90f1b.jpg",
+            "https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg",
         title: 'Aenean Ipsum tincidunt ut sed',
         date: '03 12 2018',
         username: 'Super User',
@@ -90,7 +90,7 @@ class NewFeedsScreen extends StatelessWidget {
         sub: "Smart Home"));
     data.add(Model(
         image:
-            "http://apaniot.com/cache/resized/26fb2c72a9468b1d5f7acb26129437e6.jpg",
+            "https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg",
         title: 'Aestibulum Ipsum A Ornare Car',
         date: '03 12 2018',
         username: 'Super User',
@@ -100,7 +100,7 @@ class NewFeedsScreen extends StatelessWidget {
         sub: "Smart Device"));
     data.add(Model(
         image:
-            "http://apaniot.com/cache/resized/6e1dfd99ffbf7de2d04db4ead454999c.jpg",
+            "https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg",
         title: 'Donec tellus Nulla lorem Nullam elit',
         date: '03 12 2018',
         username: 'Super User',
@@ -110,7 +110,7 @@ class NewFeedsScreen extends StatelessWidget {
         sub: "Smart Switch"));
     data.add(Model(
         image:
-            "http://apaniot.com/cache/resized/a3b33dc17302c1df1b43a64e9ea90f1b.jpg",
+            "https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg",
         title: 'Aenean Ipsum tincidunt ut sed',
         date: '03 12 2018',
         username: 'Super User',
@@ -120,7 +120,7 @@ class NewFeedsScreen extends StatelessWidget {
         sub: "Smart Light"));
     data.add(Model(
         image:
-            "http://apaniot.com/cache/resized/26fb2c72a9468b1d5f7acb26129437e6.jpg",
+            "https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg",
         title: 'Aestibulum Ipsum A Ornare Car',
         date: '03 12 2018',
         username: 'Super User',
@@ -130,7 +130,7 @@ class NewFeedsScreen extends StatelessWidget {
         sub: "Smart Speaker"));
     data.add(Model(
         image:
-            "http://apaniot.com/cache/resized/6e1dfd99ffbf7de2d04db4ead454999c.jpg",
+            "https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg",
         title: 'Donec tellus Nulla lorem Nullam elit',
         date: '03 12 2018',
         username: 'Super User',

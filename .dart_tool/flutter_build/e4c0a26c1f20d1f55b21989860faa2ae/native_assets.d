@@ -1,0 +1,1 @@
+ C:\\Users\\joyal\\Desktop\\apaniot\\.dart_tool\\flutter_build\\e4c0a26c1f20d1f55b21989860faa2ae\\native_assets.yaml: 

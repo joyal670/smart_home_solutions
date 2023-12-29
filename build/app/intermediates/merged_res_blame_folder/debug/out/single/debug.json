@@ -4,6 +4,10 @@
         "source": "com.example.apaniot.app-main-14:/mipmap-hdpi/ic_launcher.png"
     },
     {
+        "merged": "com.example.apaniot.app-merged_res-20:/drawable_launch_background.xml.flat",
+        "source": "com.example.apaniot.app-main-14:/drawable/launch_background.xml"
+    },
+    {
         "merged": "com.example.apaniot.app-merged_res-20:/drawable-v21_launch_background.xml.flat",
         "source": "com.example.apaniot.app-main-14:/drawable-v21/launch_background.xml"
     },

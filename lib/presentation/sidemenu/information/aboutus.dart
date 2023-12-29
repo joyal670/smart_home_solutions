@@ -39,7 +39,7 @@ class AboutUsScreen extends StatelessWidget {
               textStyle: TextStyle(color: colorGrey)),
           height40,
           Image.network(
-            'http://apaniot.com/images/2022/06/18/apaniot.jpg',
+            'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg',
             height: 350,
             width: double.infinity,
             fit: BoxFit.fill,

@@ -75,7 +75,7 @@ class _HomePageScreenState extends State<HomePageScreen>
             children: [
               height15,
               Image.network(
-                'http://apaniot.com/images/apainot-black-2.png',
+                'https://apaniot.com/wp-content/uploads/2023/12/cropped-ALOT_Group-of-Company_ALOT-Real-Estate.png',
                 width: 100,
               ),
               TextWidget(
@@ -356,32 +356,41 @@ class _HomePageScreenState extends State<HomePageScreen>
     data2.add(aModel(name: "Smart Lights", isSelected: false));
     data2.add(aModel(name: "Security Cameras", isSelected: false));
 
-    data3.add('http://apaniot.com/images/smarthome/slider1.jpg');
-    data3.add('http://apaniot.com/images/smarthome/slider2.jpg');
-    data3.add('http://apaniot.com/images/smarthome/slider3.jpg');
+    data3.add(
+        'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg');
+    data3.add(
+        'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg');
+    data3.add(
+        'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg');
 
     data4.add(cModel(
-        url: 'http://apaniot.com/images/smarthome/cate1.jpg',
+        url:
+            'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg',
         name: "Best Video Doorbells",
         isSelected: false));
     data4.add(cModel(
-        url: 'http://apaniot.com/images/smarthome/cate2.jpg',
+        url:
+            'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg',
         name: "Best Smart Lights",
         isSelected: false));
     data4.add(cModel(
-        url: 'http://apaniot.com/images/smarthome/cate3.jpg',
+        url:
+            'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg',
         name: "Best Smart Speakers",
         isSelected: false));
     data4.add(cModel(
-        url: 'http://apaniot.com/images/smarthome/cate4.jpg',
+        url:
+            'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg',
         name: "Best Robot Vacuum Cleaners",
         isSelected: false));
     data4.add(cModel(
-        url: 'http://apaniot.com/images/smarthome/cate5.jpg',
+        url:
+            'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg',
         name: "Best Security Cameras",
         isSelected: false));
     data4.add(cModel(
-        url: 'http://apaniot.com/images/smarthome/cate6.jpg',
+        url:
+            'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg',
         name: "Best Smart Locks",
         isSelected: false));
 
@@ -389,51 +398,54 @@ class _HomePageScreenState extends State<HomePageScreen>
         title: "Best Video Doorbells",
         sub:
             "Everything is under control at a moment’s notice, no matter where you are",
-        image: "http://apaniot.com/images/smarthome/control1.png"));
+        image:
+            "https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg"));
     data5.add(bModel(
         title: "Best Smart Lights",
         sub:
             "Everything is under control at a moment’s notice, no matter where you are",
-        image: "http://apaniot.com/images/smarthome/control2.png"));
+        image:
+            "https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg"));
     data5.add(bModel(
         title: "Best Smart Locks",
         sub:
             "Everything is under control at a moment’s notice, no matter where you are",
-        image: "http://apaniot.com/images/smarthome/control3.png"));
+        image:
+            "https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg"));
 
     data6.add(dModel(
         title: "Tikam Sacen Facen",
         price: "499",
         image:
-            "http://apaniot.com/cache/resized/b13440f9a9526c3dfa982aad4180ccca.jpg",
+            "https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg",
         rating: "4.2",
         discount: '-20%'));
     data6.add(dModel(
         title: "Suretin mipen ruma",
         price: "856",
         image:
-            "http://apaniot.com/cache/resized/fa7482224fd75f2ffab22644b509cb79.jpg",
+            "https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg",
         rating: "4.7",
         discount: '-50%'));
     data6.add(dModel(
         title: "PowerShot SX730 HS",
         price: "329",
         image:
-            "http://apaniot.com/cache/resized/70c9c19173be5d7bfc6efcf98cd3a16c.jpg",
+            "https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg",
         rating: "3.7",
         discount: '-13%'));
     data6.add(dModel(
         title: "20W Slimline LED",
         price: "329",
         image:
-            "http://apaniot.com/cache/resized/8b68426735c87e6b20cbc49041c30a84.jpg",
+            "https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg",
         rating: "2.4",
         discount: '-37%'));
     data6.add(dModel(
         title: "Dalicontrol 30 Mech",
         price: "548",
         image:
-            "http://apaniot.com/cache/resized/3a4757c9e782a35b92621bfdcb641e48.jpg",
+            "https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg",
         rating: "4.4",
         discount: '-10%'));
 
@@ -1313,14 +1325,22 @@ void showImageDialog(BuildContext context, dModel data) {
   final CarouselController _controller = CarouselController();
   List<String> imageList = [];
   imageList.add(data.image);
-  imageList.add('http://apaniot.com/images/virtuemart/product/162.jpg');
-  imageList.add('http://apaniot.com/images/virtuemart/product/551.jpg');
-  imageList.add('http://apaniot.com/images/virtuemart/product/88.jpg');
-  imageList.add('http://apaniot.com/images/virtuemart/product/118.jpg');
-  imageList.add('http://apaniot.com/images/virtuemart/product/162.jpg');
-  imageList.add('http://apaniot.com/images/virtuemart/product/551.jpg');
-  imageList.add('http://apaniot.com/images/virtuemart/product/88.jpg');
-  imageList.add('http://apaniot.com/images/virtuemart/product/118.jpg');
+  imageList.add(
+      'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg');
+  imageList.add(
+      'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg');
+  imageList.add(
+      'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg');
+  imageList.add(
+      'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg');
+  imageList.add(
+      'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg');
+  imageList.add(
+      'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg');
+  imageList.add(
+      'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg');
+  imageList.add(
+      'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg');
 
   ItemScrollController _scrollController = ItemScrollController();
 

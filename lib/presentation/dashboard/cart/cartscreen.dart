@@ -28,40 +28,40 @@ class _CartScreenState extends State<CartScreen> {
   List<modelClass> model = [
     modelClass(
         image:
-            'http://apaniot.com/cache/resized/fa7482224fd75f2ffab22644b509cb79.jpg',
+            'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg',
         name: 'Suretin mipen ruma',
         qty: 1,
         price: 45),
     modelClass(
       image:
-          'http://apaniot.com/cache/resized/70c9c19173be5d7bfc6efcf98cd3a16c.jpg',
+          'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg',
       name: 'PowerShot SX730 HS',
       qty: 2,
       price: 60,
     ),
     modelClass(
       image:
-          'http://apaniot.com/cache/resized/8b68426735c87e6b20cbc49041c30a84.jpg',
+          'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg',
       name: '20W Slimline LED',
       qty: 1,
       price: 12,
     ),
     modelClass(
         image:
-            'http://apaniot.com/cache/resized/fa7482224fd75f2ffab22644b509cb79.jpg',
+            'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg',
         name: 'Suretin mipen ruma',
         qty: 1,
         price: 45),
     modelClass(
       image:
-          'http://apaniot.com/cache/resized/70c9c19173be5d7bfc6efcf98cd3a16c.jpg',
+          'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg',
       name: 'PowerShot SX730 HS',
       qty: 2,
       price: 60,
     ),
     modelClass(
       image:
-          'http://apaniot.com/cache/resized/8b68426735c87e6b20cbc49041c30a84.jpg',
+          'https://www.shutterstock.com/image-photo/asian-young-woman-using-smart-260nw-1931287913.jpg',
       name: '20W Slimline LED',
       qty: 1,
       price: 12,

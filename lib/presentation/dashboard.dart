@@ -148,7 +148,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.network(
-                        'http://apaniot.com/images/apainot-black-2.png',
+                        'https://apaniot.com/wp-content/uploads/2023/12/cropped-ALOT_Group-of-Company_ALOT-Real-Estate.png',
                         width: 150,
                       ),
                       TextWidget(
